@@ -11,13 +11,13 @@ return [
     'db' => [
         'adapters' => [
             'zf3_mysql' => [
-                'database' => 'xtend-sms-api',
+                'database' => 'xtend-api',
                 'driver' => 'PDO_Mysql',
                 'hostname' => 'mysql567',
                 'username' => 'root',
                 'password' => 'password',
                 'port' => '3306',
-                'dsn' => 'mysql:dbname=xtend-sms-api;host=mysql567;charset=utf8',
+                'dsn' => 'mysql:dbname=xtend-api;host=mysql567;charset=utf8',
             ],
         ],
     ],

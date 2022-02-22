@@ -10,7 +10,7 @@ return [
                     'port'     => '3306',
                     'user'     => 'root',
                     'password' => 'password',
-                    'dbname'   => 'xtend-sms-api',
+                    'dbname'   => 'xtend-api',
                     'charset'  => 'utf8'
                 ],
             ],
