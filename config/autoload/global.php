@@ -11,13 +11,13 @@ return [
     'db' => [
         'adapters' => [
             'zf3_mysql' => [
-                'database' => 'xtend-api',
+                'database' => 'gudang-online',
                 'driver' => 'PDO_Mysql',
                 'hostname' => 'mysql567',
                 'username' => 'root',
                 'password' => 'password',
                 'port' => '3306',
-                'dsn' => 'mysql:dbname=xtend-api;host=mysql567;charset=utf8',
+                'dsn' => 'mysql:dbname=gudang-online;host=mysql567;charset=utf8',
             ],
         ],
     ],
@@ -56,6 +56,7 @@ return [
                 'Attendance\\V1' => 'oauth2_pdo',
                 'Journal\\V1' => 'oauth2_pdo',
                 'Stock\\V1' => 'oauth2_pdo',
+                'GudangOnline\\V1' => 'oauth2_pdo',
             ],
             'adapters' => [
                 'oauth2_pdo' => [

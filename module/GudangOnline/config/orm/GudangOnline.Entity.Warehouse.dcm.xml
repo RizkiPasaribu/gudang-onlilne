@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+  <entity name="GudangOnline\Entity\Warehouse" table="warehouse">
+    <indexes>
+      <index name="warehouse_warehouse_product_idx" columns="warehouse_uuid"/>
+      <index name="warehouse_product_idx" columns="product_uuid"/>
+    </indexes>
+    <id name="uuid" type="string" column="uuid" length="36">
+      <generator strategy="UUID"/>
+    </id>
+    <field name="name" type="string" column="name" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="code" type="string" column="code" length="200" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true">
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="true">
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+    <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
+    <many-to-one field="product" target-entity="GudangOnline\Entity\Product" fetch="LAZY">
+      <join-columns>
+        <join-column name="product_uuid" referenced-column-name="uuid"/>
+      </join-columns>
+    </many-to-one>
+    <!-- <many-to-one field="warehouse" target-entity="GudangOnline\Entity\WarehouseProduct" fetch="LAZY">
+      <join-columns>
+        <join-column name="warehouse_uuid" referenced-column-name="uuid"/>
+      </join-columns>
+    </many-to-one> -->
+  </entity>
+</doctrine-mapping>

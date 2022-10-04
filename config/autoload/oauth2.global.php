@@ -3,7 +3,7 @@ return [
     'zf-oauth2' => [
         'storage' => 'user.auth.pdo.adapter',
         'db' => [
-            'dsn' => 'mysql:host=mysql567;dbname=xtend-api',
+            'dsn' => 'mysql:host=mysql567;dbname=gudang-online',
             'route' => '/oauth',
             'username' => 'root',
             'password' => 'password',

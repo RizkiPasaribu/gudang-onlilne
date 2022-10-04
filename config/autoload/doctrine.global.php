@@ -10,7 +10,7 @@ return [
                     'port'     => '3306',
                     'user'     => 'root',
                     'password' => 'password',
-                    'dbname'   => 'xtend-api',
+                    'dbname'   => 'gudang-online',
                     'charset'  => 'utf8'
                 ],
             ],
