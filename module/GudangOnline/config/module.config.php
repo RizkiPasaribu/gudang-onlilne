@@ -140,7 +140,7 @@ return [
                 0 => 'application/vnd.gudang-online.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
-                3 => 'multipart/from-data',
+                3 => 'multipart/form-data',
             ],
             'GudangOnline\\V1\\Rest\\ProductCategory\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
@@ -157,7 +157,7 @@ return [
             'GudangOnline\\V1\\Rest\\Product\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
                 1 => 'application/json',
-                2 => 'multipart/from-data',
+                2 => 'multipart/form-data',
             ],
             'GudangOnline\\V1\\Rest\\ProductCategory\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
