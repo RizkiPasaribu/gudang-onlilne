@@ -287,7 +287,7 @@ return [
                 'entity_identifier_name' => 'uuid',
                 'route_name' => 'gudang-online.rest.warehouse',
                 'route_identifier_name' => 'uuid',
-                'hydrator' => \Zend\Hydrator\ArraySerializable::class,
+                'hydrator' => 'GudangOnline\\Hydrator\\Warehouse',
             ],
         ],
     ],

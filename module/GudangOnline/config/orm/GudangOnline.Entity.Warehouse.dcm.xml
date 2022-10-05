@@ -32,10 +32,10 @@
         <join-column name="product_uuid" referenced-column-name="uuid"/>
       </join-columns>
     </many-to-one>
-    <!-- <many-to-one field="warehouse" target-entity="GudangOnline\Entity\WarehouseProduct" fetch="LAZY">
+    <many-to-one field="warehouse" target-entity="GudangOnline\Entity\WarehouseProduct" fetch="LAZY">
       <join-columns>
         <join-column name="warehouse_uuid" referenced-column-name="uuid"/>
       </join-columns>
-    </many-to-one> -->
+    </many-to-one>
   </entity>
 </doctrine-mapping>
