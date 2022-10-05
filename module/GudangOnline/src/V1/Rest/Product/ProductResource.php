@@ -34,7 +34,25 @@ class ProductResource extends AbstractResource
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $userProfile = $this->fetchUserProfile();
+        if (is_null($userProfile)) {
+            return new ApiProblemResponse(new ApiProblem(403, "You do not have access!"));
+        }
+
+        $inputFilter = $this->getInputFilter();
+
+        try {
+            $inputFilter->add(['name' => 'createdAt']);
+            $inputFilter->get('createdAt')->setValue(new \DateTime('now'));
+
+            $inputFilter->add(['name' => 'updatedAt']);
+            $inputFilter->get('updatedAt')->setValue(new \DateTime('now'));
+
+            $result = $this->productService->addProduct($inputFilter);
+            return $result;
+        } catch (\User\V1\Service\Exception\RuntimeException $e) {
+            return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));
+        }
     }
 
     /**
@@ -45,7 +63,21 @@ class ProductResource extends AbstractResource
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        $userProfile = $this->fetchUserProfile();
+        if (is_null($userProfile) || is_null($userProfile->getAccount())) {
+            return new ApiProblemResponse(new ApiProblem(404, "You do not have access"));
+        }
+
+        try {
+            $product = $this->productMapper->fetchOneBy(['uuid' => $id]);
+            if (is_null($product)) {
+                return new ApiProblem(404, "Product data Not Found");
+            }
+            $this->productService->deleteProduct($product);
+            return new ApiProblem(200, "Succes Deleted Product With UUID " . $id, null, "Success");
+        } catch (\RuntimeException $e) {
+            return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));
+        }
     }
 
     /**
@@ -98,7 +130,13 @@ class ProductResource extends AbstractResource
      */
     public function patch($id, $data)
     {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
+        $product = $this->productMapper->fetchOneBy(['uuid' => $id]);
+        if (is_null($product)) {
+            return new ApiProblemResponse(new ApiProblem(404, "Product data not found!"));
+        }
+        $inputFilter = $this->getInputFilter();
+        $this->productService->editProduct($product, $inputFilter);
+        return $product;
     }
 
     /**

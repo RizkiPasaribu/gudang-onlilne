@@ -69,6 +69,11 @@ class ProductEventListener implements ListenerAggregateInterface
                 throw new InvalidArgumentException('Input Filter not set');
             }
             $bodyRequest = $event->getInputFilter()->getValues();
+            // handle photo
+            $photoPath = $bodyRequest['photo']['tmp_name'];
+            unset($bodyRequest['photo']);
+            $bodyRequest['photo'] = $photoPath;
+
             $productEntity = new Product;
             $hydrateEntity  = $this->getProductHydrator()->hydrate($bodyRequest, $productEntity);
             $entityResult   = $this->productMapper->save($hydrateEntity);
@@ -105,9 +110,12 @@ class ProductEventListener implements ListenerAggregateInterface
                 throw new InvalidArgumentException('InputFilter not set');
 
             $bodyRequest = $inputFilter->getValues();
+            // handle photo
+            $photoPath = $bodyRequest['photo']['tmp_name'];
+            unset($bodyRequest['photo']);
+            $bodyRequest['photo'] = $photoPath;
 
             $entity = $event->getProductEntity();
-
             $entity->setUpdatedAt(new \DateTime('now'));
             $hydratedEntity = $this->productHydrator->hydrate($bodyRequest, $entity);
 

@@ -140,6 +140,7 @@ return [
                 0 => 'application/vnd.gudang-online.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
+                3 => 'multipart/from-data',
             ],
             'GudangOnline\\V1\\Rest\\ProductCategory\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
@@ -156,6 +157,7 @@ return [
             'GudangOnline\\V1\\Rest\\Product\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
                 1 => 'application/json',
+                2 => 'multipart/from-data',
             ],
             'GudangOnline\\V1\\Rest\\ProductCategory\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
@@ -265,6 +267,9 @@ return [
         'GudangOnline\\V1\\Rest\\ProductCategory\\Controller' => [
             'input_filter' => 'GudangOnline\\V1\\Rest\\ProductCategory\\Validator',
         ],
+        'GudangOnline\\V1\\Rest\\Product\\Controller' => [
+            'input_filter' => 'GudangOnline\\V1\\Rest\\Product\\Validator',
+        ],
     ],
     'input_filter_specs' => [
         'GudangOnline\\V1\\Rest\\ProductCategory\\Validator' => [
@@ -273,6 +278,41 @@ return [
                 'validators' => [],
                 'filters' => [],
                 'name' => 'name',
+            ],
+        ],
+        'GudangOnline\\V1\\Rest\\Product\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'name',
+            ],
+            1 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'price',
+            ],
+            2 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [
+                    0 => [
+                        'name' => \Zend\Filter\File\RenameUpload::class,
+                        'options' => [
+                            'randomize' => true,
+                            'target' => 'data/photo',
+                            'use_upload_extension' => true,
+                        ],
+                    ],
+                ],
+                'name' => 'photo',
+            ],
+            3 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'productCategory',
             ],
         ],
     ],
