@@ -31,7 +31,25 @@ class WarehouseProductResource extends AbstractResource
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $userProfile = $this->fetchUserProfile();
+        if (is_null($userProfile)) {
+            return new ApiProblemResponse(new ApiProblem(403, "You do not have access!"));
+        }
+
+        $inputFilter = $this->getInputFilter();
+
+        try {
+            $inputFilter->add(['name' => 'createdAt']);
+            $inputFilter->get('createdAt')->setValue(new \DateTime('now'));
+
+            $inputFilter->add(['name' => 'updatedAt']);
+            $inputFilter->get('updatedAt')->setValue(new \DateTime('now'));
+
+            $result = $this->warehouseProductService->addWarehouseProduct($inputFilter);
+            return $result;
+        } catch (\User\V1\Service\Exception\RuntimeException $e) {
+            return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));
+        }
     }
 
     /**
@@ -42,7 +60,21 @@ class WarehouseProductResource extends AbstractResource
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        $userProfile = $this->fetchUserProfile();
+        if (is_null($userProfile) || is_null($userProfile->getAccount())) {
+            return new ApiProblemResponse(new ApiProblem(404, "You do not have access"));
+        }
+
+        try {
+            $warehouseProduct = $this->warehouseProductMapper->fetchOneBy(['uuid' => $id]);
+            if (is_null($warehouseProduct)) {
+                return new ApiProblem(404, "Product data Not Found");
+            }
+            $this->warehouseProductService->deleteWarehouseProduct($warehouseProduct);
+            return new ApiProblem(200, "Succes Deleted Warehouse Product With UUID " . $id, null, "Success");
+        } catch (\RuntimeException $e) {
+            return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));
+        }
     }
 
     /**
@@ -95,7 +127,13 @@ class WarehouseProductResource extends AbstractResource
      */
     public function patch($id, $data)
     {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
+        $warehouseProduct = $this->warehouseProductMapper->fetchOneBy(['uuid' => $id]);
+        if (is_null($warehouseProduct)) {
+            return new ApiProblemResponse(new ApiProblem(404, "Warehouse Product data not found!"));
+        }
+        $inputFilter = $this->getInputFilter();
+        $this->warehouseProductService->editWarehouseProduct($warehouseProduct, $inputFilter);
+        return $warehouseProduct;
     }
 
     /**

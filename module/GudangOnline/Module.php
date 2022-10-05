@@ -20,6 +20,11 @@ class Module implements ApigilityProviderInterface
         $productCategoryEventListener = $sm->get(\GudangOnline\V1\Service\Listener\ProductCategoryEventListener::class);
         $productCategoryEventListener->attach($productCategoryService->getEventManager());
 
+        // warehouse
+        $warehouseService = $sm->get(\GudangOnline\V1\Service\Warehouse::class);
+        $warehouseEventListener = $sm->get(\GudangOnline\V1\Service\Listener\WarehouseEventListener::class);
+        $warehouseEventListener->attach($warehouseService->getEventManager());
+
         // warehouse product
         $warehouseProductService = $sm->get(\GudangOnline\V1\Service\WarehouseProduct::class);
         $warehouseProductEventListener = $sm->get(\GudangOnline\V1\Service\Listener\WarehouseProductEventListener::class);
