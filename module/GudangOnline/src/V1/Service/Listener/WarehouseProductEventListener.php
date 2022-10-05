@@ -2,7 +2,7 @@
 
 namespace GudangOnline\V1\Service\Listener;
 
-use GudangOnline\Entity\ProductCategory;
+use GudangOnline\Entity\WarehouseProduct;
 
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -10,29 +10,31 @@ use Zend\EventManager\ListenerAggregateTrait;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Exception\InvalidArgumentException;
 use Psr\Log\LoggerAwareTrait;
+use GudangOnline\Mapper\WarehouseProductTrait;
 use Zend\EventManager\EventManagerAwareTrait;
-use GudangOnline\V1\ProductCategoryEvent;
+use GudangOnline\V1\WarehouseProductEvent;
 use Zend\Log\Exception\RuntimeException;
 
-class ProductCategoryEventListener implements ListenerAggregateInterface
+class WarehouseProductEventListener implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
     use EventManagerAwareTrait;
     use LoggerAwareTrait;
+    // use WarehouseProductTrait;
 
     protected $config;
-    protected $productCategoryEvent;
-    protected $productCategoryHydrator;
-    protected $productCategoryIndicatorHydrator;
-    protected $productCategoryIndicatorAttachmentHydrator;
+    protected $warehouseProductEvent;
+    protected $warehouseProductHydrator;
+    protected $warehouseProductIndicatorHydrator;
+    protected $warehouseProductIndicatorAttachmentHydrator;
     protected $fillingTimeRangeHydrator;
 
-    protected $productCategoryMapper;
+    protected $warehouseProductMapper;
 
     public function __construct(
-        $productCategoryMapper
+        $warehouseProductMapper
     ) {
-        $this->productCategoryMapper = $productCategoryMapper;
+        $this->warehouseProductMapper = $warehouseProductMapper;
     }
 
     /**
@@ -42,40 +44,40 @@ class ProductCategoryEventListener implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(
-            ProductCategoryEvent::EVENT_CREATE_PRODUCT_CATEGORY,
-            [$this, 'createProductCategory'],
+            WarehouseProductEvent::EVENT_CREATE_WAREHOUSE_PRODUCT,
+            [$this, 'createWarehouseProduct'],
             500
         );
 
         $this->listeners[] = $events->attach(
-            ProductCategoryEvent::EVENT_EDIT_PRODUCT_CATEGORY,
-            [$this, 'editProductCategory'],
+            WarehouseProductEvent::EVENT_EDIT_WAREHOUSE_PRODUCT,
+            [$this, 'editWarehouseProduct'],
             500
         );
 
         $this->listeners[] = $events->attach(
-            ProductCategoryEvent::EVENT_DELETE_PRODUCT_CATEGORY,
-            [$this, 'deleteProductCategory'],
+            WarehouseProductEvent::EVENT_DELETE_WAREHOUSE_PRODUCT,
+            [$this, 'deleteWarehouseProduct'],
             500
         );
     }
 
-    public function createProductCategory(ProductCategoryEvent $event)
+    public function createWarehouseProduct(WarehouseProductEvent $event)
     {
         try {
             if (!$event->getInputFilter() instanceof InputFilterInterface) {
                 throw new InvalidArgumentException('Input Filter not set');
             }
             $bodyRequest = $event->getInputFilter()->getValues();
-            $productCategoryEntity = new ProductCategory;
-            $hydrateEntity  = $this->getProductCategoryHydrator()->hydrate($bodyRequest, $productCategoryEntity);
-            $entityResult   = $this->productCategoryMapper->save($hydrateEntity);
-            $event->setProductCategoryEntity($entityResult);
-            $uuid = $productCategoryEntity->getUuid();
+            $warehouseProductEntity = new WarehouseProduct;
+            $hydrateEntity  = $this->getWarehouseProductHydrator()->hydrate($bodyRequest, $warehouseProductEntity);
+            $entityResult   = $this->warehouseProductMapper->save($hydrateEntity);
+            $event->setWarehouseProductEntity($entityResult);
+            $uuid = $warehouseProductEntity->getUuid();
 
             $this->logger->log(
                 \Psr\Log\LogLevel::INFO,
-                "{function}: New ProductCategory {uuid} created successfully",
+                "{function}: New WarehouseProduct {uuid} created successfully",
                 [
                     "function" => __FUNCTION__,
                     "uuid" => $uuid
@@ -95,7 +97,7 @@ class ProductCategoryEventListener implements ListenerAggregateInterface
         }
     }
 
-    public function editProductCategory(ProductCategoryEvent $event)
+    public function editWarehouseProduct(WarehouseProductEvent $event)
     {
         try {
             $inputFilter = $event->getInputFilter();
@@ -104,24 +106,24 @@ class ProductCategoryEventListener implements ListenerAggregateInterface
 
             $bodyRequest = $inputFilter->getValues();
 
-            $entity = $event->getProductCategoryEntity();
+            $entity = $event->getWarehouseProductEntity();
 
             $entity->setUpdatedAt(new \DateTime('now'));
-            $hydratedEntity = $this->productCategoryHydrator->hydrate($bodyRequest, $entity);
+            $hydratedEntity = $this->warehouseProductHydrator->hydrate($bodyRequest, $entity);
 
-            if (!($hydratedEntity instanceof ProductCategory))
-                throw new \Exception('HyratedEntity is not instance of ProductCategory Entity');
+            if (!($hydratedEntity instanceof WarehouseProduct))
+                throw new \Exception('HyratedEntity is not instance of WarehouseProduct Entity');
 
-            $resultEntity  = $this->productCategoryMapper->save($hydratedEntity);
+            $resultEntity  = $this->warehouseProductMapper->save($hydratedEntity);
 
-            if (!($resultEntity instanceof ProductCategory))
-                throw new \Exception("ResultEntity is not instance of ProductCategory Entity");
-            $event->setProductCategoryEntity($resultEntity);
+            if (!($resultEntity instanceof WarehouseProduct))
+                throw new \Exception("ResultEntity is not instance of WarehouseProduct Entity");
+            $event->setWarehouseProductEntity($resultEntity);
             $uuid = $resultEntity->getUuid();
 
             $this->logger->log(
                 \Psr\Log\LogLevel::INFO,
-                "{function}: ProductCategory {uuid} updated successfully",
+                "{function}: WarehouseProduct {uuid} updated successfully",
                 [
                     "function" => __FUNCTION__,
                     "uuid" => $uuid
@@ -140,16 +142,16 @@ class ProductCategoryEventListener implements ListenerAggregateInterface
         }
     }
 
-    public function deleteProductCategory(ProductCategoryEvent $event)
+    public function deleteWarehouseProduct(WarehouseProductEvent $event)
     {
         try {
             $deletedData = $event->getDeleteData();
-            $this->productCategoryMapper->delete($deletedData);
+            $this->warehouseProductMapper->delete($deletedData);
             $uuid   = $deletedData->getUuid();
 
             $this->logger->log(
                 \Psr\Log\LogLevel::INFO,
-                "{function} {uuid}: Data ProductCategory deleted successfully",
+                "{function} {uuid}: Data WarehouseProduct deleted successfully",
                 [
                     'uuid' => $uuid,
                     "function" => __FUNCTION__
@@ -161,21 +163,21 @@ class ProductCategoryEventListener implements ListenerAggregateInterface
     }
 
     /**
-     * Get the value of productCategoryHydrator
+     * Get the value of warehouseProductHydrator
      */
-    public function getProductCategoryHydrator()
+    public function getWarehouseProductHydrator()
     {
-        return $this->productCategoryHydrator;
+        return $this->warehouseProductHydrator;
     }
 
     /**
-     * Set the value of productCategoryHydrator
+     * Set the value of warehouseProductHydrator
      *
      * @return  self
      */
-    public function setProductCategoryHydrator($productCategoryHydrator)
+    public function setWarehouseProductHydrator($warehouseProductHydrator)
     {
-        $this->productCategoryHydrator = $productCategoryHydrator;
+        $this->warehouseProductHydrator = $warehouseProductHydrator;
 
         return $this;
     }

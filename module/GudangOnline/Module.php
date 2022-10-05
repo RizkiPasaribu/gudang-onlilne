@@ -16,9 +16,14 @@ class Module implements ApigilityProviderInterface
         $productEventListener->attach($productService->getEventManager());
 
         // product category
-        $productCategoryService = $sm->get(\GudangOnline\V1\Service\Product::class);
-        $productCategoryEventListener = $sm->get(\GudangOnline\V1\Service\Listener\ProductEventListener::class);
+        $productCategoryService = $sm->get(\GudangOnline\V1\Service\ProductCategory::class);
+        $productCategoryEventListener = $sm->get(\GudangOnline\V1\Service\Listener\ProductCategoryEventListener::class);
         $productCategoryEventListener->attach($productCategoryService->getEventManager());
+
+        // warehouse product
+        $warehouseProductService = $sm->get(\GudangOnline\V1\Service\WarehouseProduct::class);
+        $warehouseProductEventListener = $sm->get(\GudangOnline\V1\Service\Listener\WarehouseProductEventListener::class);
+        $warehouseProductEventListener->attach($warehouseProductService->getEventManager());
     }
 
     public function getConfig()

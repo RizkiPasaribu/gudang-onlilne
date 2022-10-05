@@ -3787,7 +3787,6 @@ return [
                 'route_identifier_name' => 'uuid',
                 'hydrator' => 'User\\Hydrator\\BusinessSector',
             ],
-
         ],
     ],
     'zf-mvc-auth' => [
