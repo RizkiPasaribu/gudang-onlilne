@@ -32,15 +32,16 @@
     </field>
     <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
     <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
-    <many-to-one field="product" target-entity="GudangOnline\Entity\Product" fetch="LAZY">
-      <join-columns>
-        <join-column name="product_uuid" referenced-column-name="uuid"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="warehouse" target-entity="GudangOnline\Entity\WarehouseProduct" fetch="LAZY">
-      <join-columns>
-        <join-column name="warehouse_uuid" referenced-column-name="uuid"/>
-      </join-columns>
-    </many-to-one>
+    <many-to-many field="products" target-entity="GudangOnline\Entity\Product">
+      <join-table name="warehouse_product">
+        <join-columns>
+          <join-column name="warehouse_uuid" referenced-column-name="uuid" />
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="product_uuid" referenced-column-name="uuid" />
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+
   </entity>
 </doctrine-mapping>

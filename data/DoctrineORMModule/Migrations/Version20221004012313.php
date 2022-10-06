@@ -52,20 +52,6 @@ SQL;
 SQL;
         $this->addSql($createTable);
 
-        // tabel warehouse product
-        $createTable = <<<SQL
-        CREATE TABLE `warehouse_product` (
-        `uuid` VARCHAR(36) NOT NULL,
-        `warehouse` VARCHAR(200) NULL DEFAULT NULL,
-        `product` VARCHAR(200) NULL DEFAULT NULL,
-        `stock` INT NULL DEFAULT NULL,
-        `created_at` DATETIME NULL,
-        `updated_at` DATETIME NULL DEFAULT NULL,
-        `deleted_at` DATETIME NULL DEFAULT NULL,
-        PRIMARY KEY (`uuid`));
-SQL;
-        $this->addSql($createTable);
-
         // tabel warehouse
         $createTable = <<<SQL
         CREATE TABLE `warehouse` (
@@ -96,16 +82,57 @@ SQL;
             COLLATE=utf8_unicode_ci;
 SQL;
         $this->addSql($createTable);
+
+
+        $createTable = <<<SQL
+        CREATE TABLE `warehouse_product` (
+        `uuid` VARCHAR(36) NOT NULL,
+        `warehouse_uuid` VARCHAR(36) NULL DEFAULT NULL,
+        `product_uuid` VARCHAR(36) NULL DEFAULT NULL,
+        `stock` INT NULL DEFAULT NULL,
+        `created_at` DATETIME NULL,
+        `updated_at` DATETIME NULL DEFAULT NULL,
+        `deleted_at` DATETIME NULL DEFAULT NULL,
+        PRIMARY KEY (`uuid`),
+        INDEX `warehouse_product_warehouse_idx` (`warehouse_uuid` ASC),
+        INDEX `warehouse_product_product_idx` (`product_uuid` ASC),
+        CONSTRAINT `fk_warehouse_product_warehouse`
+            FOREIGN KEY (`warehouse_uuid`)
+            REFERENCES `warehouse` (`uuid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+        CONSTRAINT `fk_warehouse_product_product`
+            FOREIGN KEY (`product_uuid`)
+            REFERENCES `product` (`uuid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+        ENGINE = InnoDB
+        DEFAULT CHARACTER SET = utf8
+        COLLATE = utf8_unicode_ci;
+SQL;
+        $this->addSql($createTable);
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         //drop tabel yang sudah dibuat
+        //         ALTER TABLE `warehouse` 
+        // DROP FOREIGN KEY `fk_warehouse_warehouse_product`,
+        // DROP FOREIGN KEY `fk_warehouse_product`;
+        // ALTER TABLE `warehouse` 
+        // DROP COLUMN `warehouse_uuid`,
+        // DROP COLUMN `product_uuid`,
+        // DROP INDEX `warehouse_warehouse_product_idx` ,
+        // DROP INDEX `warehouse_product_idx` ;
+        // ;
+
+
+
         $dropTable = <<<SQL
         SET FOREIGN_KEY_CHECKS = 0 ;
         DROP TABLE `product_category`,
-            `product`,
+            `product`,  
             `warehouse`,
             `warehouse_product`
         SET FOREIGN_KEY_CHECKS = 1 ;

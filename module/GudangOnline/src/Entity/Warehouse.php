@@ -45,15 +45,17 @@ class Warehouse implements EntityInterface
     private $uuid;
 
     /**
-     * @var \GudangOnline\Entity\Product
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $product;
+    private $products;
 
     /**
-     * @var \GudangOnline\Entity\WarehouseProduct
+     * Constructor
      */
-    private $warehouse;
-
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set name.
@@ -210,50 +212,38 @@ class Warehouse implements EntityInterface
     }
 
     /**
-     * Set product.
+     * Add product.
      *
-     * @param \GudangOnline\Entity\Product|null $product
+     * @param \GudangOnline\Entity\Product $product
      *
      * @return Warehouse
      */
-    public function setProduct(\GudangOnline\Entity\Product $product = null)
+    public function addProduct(\GudangOnline\Entity\Product $product)
     {
-        $this->product = $product;
+        $this->products[] = $product;
 
         return $this;
     }
 
     /**
-     * Get product.
+     * Remove product.
      *
-     * @return \GudangOnline\Entity\Product|null
+     * @param \GudangOnline\Entity\Product $product
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function getProduct()
+    public function removeProduct(\GudangOnline\Entity\Product $product)
     {
-        return $this->product;
+        return $this->products->removeElement($product);
     }
 
     /**
-     * Set warehouse.
+     * Get products.
      *
-     * @param \GudangOnline\Entity\WarehouseProduct|null $warehouse
-     *
-     * @return Warehouse
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setWarehouse(\GudangOnline\Entity\WarehouseProduct $warehouse = null)
+    public function getProducts()
     {
-        $this->warehouse = $warehouse;
-
-        return $this;
-    }
-
-    /**
-     * Get warehouse.
-     *
-     * @return \GudangOnline\Entity\WarehouseProduct|null
-     */
-    public function getWarehouse()
-    {
-        return $this->warehouse;
+        return $this->products;
     }
 }

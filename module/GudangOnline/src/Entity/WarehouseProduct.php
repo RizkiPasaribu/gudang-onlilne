@@ -10,16 +10,6 @@ use Aqilix\ORM\Entity\EntityInterface;
 class WarehouseProduct implements EntityInterface
 {
     /**
-     * @var string|null
-     */
-    private $warehouse;
-
-    /**
-     * @var string|null
-     */
-    private $product;
-
-    /**
      * @var int|null
      */
     private $stock;
@@ -44,54 +34,16 @@ class WarehouseProduct implements EntityInterface
      */
     private $uuid;
 
+    /**
+     * @var \GudangOnline\Entity\Product
+     */
+    private $product;
 
     /**
-     * Set warehouse.
-     *
-     * @param string|null $warehouse
-     *
-     * @return WarehouseProduct
+     * @var \GudangOnline\Entity\Warehouse
      */
-    public function setWarehouse($warehouse = null)
-    {
-        $this->warehouse = $warehouse;
+    private $warehouse;
 
-        return $this;
-    }
-
-    /**
-     * Get warehouse.
-     *
-     * @return string|null
-     */
-    public function getWarehouse()
-    {
-        return $this->warehouse;
-    }
-
-    /**
-     * Set product.
-     *
-     * @param string|null $product
-     *
-     * @return WarehouseProduct
-     */
-    public function setProduct($product = null)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product.
-     *
-     * @return string|null
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
 
     /**
      * Set stock.
@@ -197,5 +149,53 @@ class WarehouseProduct implements EntityInterface
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    /**
+     * Set product.
+     *
+     * @param \GudangOnline\Entity\Product|null $product
+     *
+     * @return WarehouseProduct
+     */
+    public function setProduct(\GudangOnline\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product.
+     *
+     * @return \GudangOnline\Entity\Product|null
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set warehouse.
+     *
+     * @param \GudangOnline\Entity\Warehouse|null $warehouse
+     *
+     * @return WarehouseProduct
+     */
+    public function setWarehouse(\GudangOnline\Entity\Warehouse $warehouse = null)
+    {
+        $this->warehouse = $warehouse;
+
+        return $this;
+    }
+
+    /**
+     * Get warehouse.
+     *
+     * @return \GudangOnline\Entity\Warehouse|null
+     */
+    public function getWarehouse()
+    {
+        return $this->warehouse;
     }
 }
