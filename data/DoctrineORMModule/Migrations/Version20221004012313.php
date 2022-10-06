@@ -72,6 +72,7 @@ SQL;
         `uuid` VARCHAR(36) NOT NULL,
         `name` VARCHAR(200) NULL DEFAULT NULL,
         `code` VARCHAR(200) NULL DEFAULT NULL,
+        `type` VARCHAR(200) NULL DEFAULT NULL,
         `product_uuid` VARCHAR(36) NULL DEFAULT NULL,
         `warehouse_uuid` VARCHAR(36) NULL DEFAULT NULL,
         `created_at` DATETIME NULL,

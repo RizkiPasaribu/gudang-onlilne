@@ -1,5 +1,10 @@
 <?php
 return [
+    'controllers' => [
+        'factories' => [
+            'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => \GudangOnline\V1\Rpc\StockIn\StockInControllerFactory::class,
+        ],
+    ],
     'service_manager' => [
         'factories' => [
             \GudangOnline\V1\Rest\Product\ProductResource::class => \GudangOnline\V1\Rest\Product\ProductResourceFactory::class,
@@ -65,6 +70,16 @@ return [
                     ],
                 ],
             ],
+            'gudang-online.rpc.stock-in' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/v1/stockin',
+                    'defaults' => [
+                        'controller' => 'GudangOnline\\V1\\Rpc\\StockIn\\Controller',
+                        'action' => 'stockIn',
+                    ],
+                ],
+            ],
         ],
     ],
     'zf-versioning' => [
@@ -73,6 +88,7 @@ return [
             1 => 'gudang-online.rest.product-category',
             2 => 'gudang-online.rest.warehouse-product',
             3 => 'gudang-online.rest.warehouse',
+            4 => 'gudang-online.rpc.stock-in',
         ],
     ],
     'zf-rest' => [
@@ -171,6 +187,7 @@ return [
             'GudangOnline\\V1\\Rest\\ProductCategory\\Controller' => 'HalJson',
             'GudangOnline\\V1\\Rest\\WarehouseProduct\\Controller' => 'HalJson',
             'GudangOnline\\V1\\Rest\\Warehouse\\Controller' => 'HalJson',
+            'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => 'Json',
         ],
         'accept_whitelist' => [
             'GudangOnline\\V1\\Rest\\Product\\Controller' => [
@@ -194,6 +211,11 @@ return [
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ],
+            'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => [
+                0 => 'application/vnd.gudang-online.v1+json',
+                1 => 'application/json',
+                2 => 'application/*+json',
+            ],
         ],
         'content_type_whitelist' => [
             'GudangOnline\\V1\\Rest\\Product\\Controller' => [
@@ -210,6 +232,10 @@ return [
                 1 => 'application/json',
             ],
             'GudangOnline\\V1\\Rest\\Warehouse\\Controller' => [
+                0 => 'application/vnd.gudang-online.v1+json',
+                1 => 'application/json',
+            ],
+            'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => [
                 0 => 'application/vnd.gudang-online.v1+json',
                 1 => 'application/json',
             ],
@@ -356,6 +382,9 @@ return [
         'GudangOnline\\V1\\Rest\\WarehouseProduct\\Controller' => [
             'input_filter' => 'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator',
         ],
+        'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => [
+            'input_filter' => 'GudangOnline\\V1\\Rpc\\StockIn\\Validator',
+        ],
     ],
     'input_filter_specs' => [
         'GudangOnline\\V1\\Rest\\ProductCategory\\Validator' => [
@@ -421,6 +450,29 @@ return [
                 'filters' => [],
                 'name' => 'stock',
             ],
+        ],
+        'GudangOnline\\V1\\Rpc\\StockIn\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'id',
+            ],
+            1 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'stock',
+            ],
+        ],
+    ],
+    'zf-rpc' => [
+        'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => [
+            'service_name' => 'StockIn',
+            'http_methods' => [
+                0 => 'POST',
+            ],
+            'route_name' => 'gudang-online.rpc.stock-in',
         ],
     ],
 ];

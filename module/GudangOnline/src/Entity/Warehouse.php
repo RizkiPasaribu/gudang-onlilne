@@ -20,6 +20,11 @@ class Warehouse implements EntityInterface
     private $code;
 
     /**
+     * @var string|null
+     */
+    private $type;
+
+    /**
      * @var \DateTime|null
      */
     private $createdAt;
@@ -96,6 +101,30 @@ class Warehouse implements EntityInterface
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Set type.
+     *
+     * @param string|null $type
+     *
+     * @return Warehouse
+     */
+    public function setType($type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type.
+     *
+     * @return string|null
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
