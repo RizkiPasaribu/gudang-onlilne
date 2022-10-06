@@ -114,8 +114,7 @@ class ProductResource extends AbstractResource
     {
         $userProfile = $this->fetchUserProfile();
         if (is_null($userProfile)) return new ApiProblemResponse(new ApiProblem(401, 'You\'re Not Authorized'));
-
-        $urlParams = [];
+        $urlParams = $params->toArray();
         $qb = $this->productMapper->fetchAll($urlParams);
         $paginatorAdapter = $this->productMapper->createPaginatorAdapter($qb);
         return new Paginator($paginatorAdapter);

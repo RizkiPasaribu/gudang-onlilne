@@ -10,7 +10,6 @@ use Zend\EventManager\ListenerAggregateTrait;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Exception\InvalidArgumentException;
 use Psr\Log\LoggerAwareTrait;
-use GudangOnline\Mapper\ProductTrait;
 use Zend\EventManager\EventManagerAwareTrait;
 use GudangOnline\V1\ProductEvent;
 use Zend\Log\Exception\RuntimeException;

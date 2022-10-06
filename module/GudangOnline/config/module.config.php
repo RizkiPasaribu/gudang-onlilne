@@ -107,7 +107,9 @@ return [
                 0 => 'GET',
                 1 => 'POST',
             ],
-            'collection_query_whitelist' => [],
+            'collection_query_whitelist' => [
+                0 => 'name',
+            ],
             'page_size' => 25,
             'page_size_param' => null,
             'entity_class' => \GudangOnline\Entity\Product::class,

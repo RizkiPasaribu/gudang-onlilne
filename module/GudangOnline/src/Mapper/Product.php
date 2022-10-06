@@ -25,6 +25,12 @@ class Product extends AbstractMapper implements MapperInterface
         $qb = $this->getEntityRepository()->createQueryBuilder('t');
         $cacheKey = 'kelas_';
 
+        //search by name
+        if (isset($params['name'])) {
+            $name = '%' . $params['name'] . '%';
+            $qb->where('t.name LIKE :name')->setParameter('name', $name);
+        }
+
         $sort = ($asc === false) ? 'DESC' : 'ASC';
         if (is_null($order)) {
             $qb->orderBy('t.createdAt', $sort);
