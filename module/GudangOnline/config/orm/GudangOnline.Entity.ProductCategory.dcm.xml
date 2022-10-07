@@ -18,5 +18,6 @@
     </field>
     <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
     <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
+    <one-to-many field="products" target-entity="GudangOnline\Entity\Product" mapped-by="productCategory" />
   </entity>
 </doctrine-mapping>

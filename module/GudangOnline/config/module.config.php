@@ -432,7 +432,26 @@ return [
                 'name' => 'productCategory',
             ],
         ],
-        'GudangOnline\\V1\\Rest\\Warehouse\\Validator' => [],
+        'GudangOnline\\V1\\Rest\\Warehouse\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'name',
+            ],
+            1 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'code',
+            ],
+            2 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'type',
+            ],
+        ],
         'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [
             0 => [
                 'required' => false,

@@ -34,6 +34,18 @@ class ProductCategory implements EntityInterface
      */
     private $uuid;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $products;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set name.
@@ -139,5 +151,41 @@ class ProductCategory implements EntityInterface
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    /**
+     * Add product.
+     *
+     * @param \GudangOnline\Entity\Product $product
+     *
+     * @return ProductCategory
+     */
+    public function addProduct(\GudangOnline\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product.
+     *
+     * @param \GudangOnline\Entity\Product $product
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeProduct(\GudangOnline\Entity\Product $product)
+    {
+        return $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

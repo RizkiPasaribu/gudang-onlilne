@@ -7,6 +7,7 @@ use GudangOnline\Entity\Product;
 use GudangOnline\Entity\ProductCategory;
 use Zend\Hydrator\Strategy\StrategyInterface;
 use DoctrineModule\Stdlib\Hydrator\Strategy\AbstractCollectionStrategy;
+use GudangOnline\Entity\WarehouseProduct;
 
 /**
  * Class KelasStrategy
@@ -30,13 +31,13 @@ class ProductsStrategy extends AbstractCollectionStrategy implements StrategyInt
     {
         $result = [];
         if ($values instanceof Collection) {
-
             foreach ($values as $value) {
                 if (!is_null($value) && $value instanceof Product) {
                     $result[] = [
-                        'uuid'                  => $value->getUuid(),
-                        'name'                 => $value->getName(),
-                        'price'             => $value->getPrice(),
+                        'uuid'  => $value->getUuid(),
+                        'name'  => $value->getName(),
+                        'price' => $value->getPrice(),
+                        // 'productCategory' => $value->getProductCategory()->getName()
                     ];
                 }
             }

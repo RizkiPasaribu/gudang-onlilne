@@ -33,6 +33,25 @@ class WarehouseResource extends AbstractResource
      */
     public function create($data)
     {
+        $userProfile = $this->fetchUserProfile();
+        if (is_null($userProfile)) {
+            return new ApiProblemResponse(new ApiProblem(403, "You do not have access!"));
+        }
+
+        $inputFilter = $this->getInputFilter();
+
+        try {
+            $inputFilter->add(['name' => 'createdAt']);
+            $inputFilter->get('createdAt')->setValue(new \DateTime('now'));
+
+            $inputFilter->add(['name' => 'updatedAt']);
+            $inputFilter->get('updatedAt')->setValue(new \DateTime('now'));
+
+            $result = $this->warehouseService->addWarehouse($inputFilter);
+            return $result;
+        } catch (\User\V1\Service\Exception\RuntimeException $e) {
+            return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));
+        }
     }
 
     /**
@@ -96,6 +115,7 @@ class WarehouseResource extends AbstractResource
      */
     public function patch($id, $data)
     {
+
         return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
     }
 
