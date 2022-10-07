@@ -14,7 +14,12 @@ class StockInControllerFactory
         $username    = $authentication->getIdentity()->getAuthenticationIdentity()['user_id'];
         $userProfile = $controllers->get('User\Mapper\UserProfile')->fetchOneBy(['username' => $username]);
 
-        $warehouseProductResource = new StockInController($warehouseProductMapper, $userProfile, $warehouseProductService, $userAccessMapper);
+        $warehouseProductResource = new StockInController(
+            $warehouseProductMapper,
+            $userProfile,
+            $warehouseProductService,
+            $userAccessMapper
+        );
         return $warehouseProductResource;
     }
 }

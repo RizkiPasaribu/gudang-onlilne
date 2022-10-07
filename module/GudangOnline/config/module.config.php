@@ -369,6 +369,17 @@ return [
                     'DELETE' => true,
                 ],
             ],
+            'GudangOnline\\V1\\Rpc\\StockIn\\Controller' => [
+                'actions' => [
+                    'stockIn' => [
+                        'GET' => false,
+                        'POST' => true,
+                        'PUT' => false,
+                        'PATCH' => false,
+                        'DELETE' => false,
+                    ],
+                ],
+            ],
         ],
     ],
     'zf-content-validation' => [
@@ -446,7 +457,7 @@ return [
                 'name' => 'code',
             ],
             2 => [
-                'required' => true,
+                'required' => false,
                 'validators' => [],
                 'filters' => [],
                 'name' => 'type',
@@ -454,18 +465,6 @@ return [
         ],
         'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [
             0 => [
-                'required' => false,
-                'validators' => [],
-                'filters' => [],
-                'name' => 'warehouse',
-            ],
-            1 => [
-                'required' => false,
-                'validators' => [],
-                'filters' => [],
-                'name' => 'product',
-            ],
-            2 => [
                 'required' => false,
                 'validators' => [],
                 'filters' => [],
@@ -477,13 +476,13 @@ return [
                 'required' => true,
                 'validators' => [],
                 'filters' => [],
-                'name' => 'id',
+                'name' => 'stock',
             ],
             1 => [
                 'required' => true,
                 'validators' => [],
                 'filters' => [],
-                'name' => 'stock',
+                'name' => 'id',
             ],
         ],
     ],

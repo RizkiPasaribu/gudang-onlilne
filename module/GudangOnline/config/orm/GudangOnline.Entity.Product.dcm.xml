@@ -32,5 +32,6 @@
         <join-column name="product_category_uuid" referenced-column-name="uuid"/>
       </join-columns>
     </many-to-one>
+    <one-to-many field="warehouseProducts" target-entity="GudangOnline\Entity\WarehouseProduct" mapped-by="product" />
   </entity>
 </doctrine-mapping>

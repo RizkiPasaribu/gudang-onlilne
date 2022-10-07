@@ -45,10 +45,22 @@ class Product implements EntityInterface
     private $uuid;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $warehouseProducts;
+
+    /**
      * @var \GudangOnline\Entity\ProductCategory
      */
     private $productCategory;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->warehouseProducts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set name.
@@ -202,6 +214,42 @@ class Product implements EntityInterface
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    /**
+     * Add warehouseProduct.
+     *
+     * @param \GudangOnline\Entity\WarehouseProduct $warehouseProduct
+     *
+     * @return Product
+     */
+    public function addWarehouseProduct(\GudangOnline\Entity\WarehouseProduct $warehouseProduct)
+    {
+        $this->warehouseProducts[] = $warehouseProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove warehouseProduct.
+     *
+     * @param \GudangOnline\Entity\WarehouseProduct $warehouseProduct
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeWarehouseProduct(\GudangOnline\Entity\WarehouseProduct $warehouseProduct)
+    {
+        return $this->warehouseProducts->removeElement($warehouseProduct);
+    }
+
+    /**
+     * Get warehouseProducts.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWarehouseProducts()
+    {
+        return $this->warehouseProducts;
     }
 
     /**

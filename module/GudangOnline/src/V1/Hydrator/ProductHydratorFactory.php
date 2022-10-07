@@ -26,6 +26,7 @@ class ProductHydratorFactory implements FactoryInterface
         $url = $helper->getScheme() . '://' . $helper->getHost();
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $hydrator = new DoctrineObject($entityManager);
+        $hydrator->addStrategy('warehouseProducts', new Strategy\WarehouseProductsStrategy);
         $hydrator->addStrategy('photo', new Strategy\PhotoStrategy($url));
         $hydrator->addStrategy('productCategory', new Strategy\ProductCategoryStrategy($url));
         $hydrator->addStrategy('createdAt', new DateTimeFormatterStrategy('c'));
