@@ -59,27 +59,10 @@ SQL;
         `name` VARCHAR(200) NULL DEFAULT NULL,
         `code` VARCHAR(200) NULL DEFAULT NULL,
         `type` VARCHAR(200) NULL DEFAULT NULL,
-        `product_uuid` VARCHAR(36) NULL DEFAULT NULL,
-        `warehouse_uuid` VARCHAR(36) NULL DEFAULT NULL,
         `created_at` DATETIME NULL,
         `updated_at` DATETIME NULL DEFAULT NULL,
         `deleted_at` DATETIME NULL DEFAULT NULL,
-        PRIMARY KEY (`uuid`),
-        INDEX `warehouse_product_idx` (`product_uuid` ASC),
-        CONSTRAINT `fk_warehouse_product`
-            FOREIGN KEY (`product_uuid`)
-            REFERENCES `product` (`uuid`)
-            ON DELETE SET NULL
-            ON UPDATE NO ACTION,
-        INDEX `warehouse_warehouse_product_idx` (`warehouse_uuid` ASC),
-        CONSTRAINT `fk_warehouse_warehouse_product`
-            FOREIGN KEY (`warehouse_uuid`)
-            REFERENCES `warehouse_product` (`uuid`)
-            ON DELETE SET NULL
-            ON UPDATE NO ACTION);
-            ENGINE=InnoDB
-            DEFAULT CHARSET=utf8
-            COLLATE=utf8_unicode_ci;
+        PRIMARY KEY (`uuid`));
 SQL;
         $this->addSql($createTable);
 

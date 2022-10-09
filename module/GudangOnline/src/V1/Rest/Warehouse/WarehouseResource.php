@@ -40,6 +40,8 @@ class WarehouseResource extends AbstractResource
 
         $inputFilter = $this->getInputFilter();
 
+        // agar bisa insert product karna ini kan many to many
+        $prod = json_decode($inputFilter->getValue('products'));
         try {
             $inputFilter->add(['name' => 'createdAt']);
             $inputFilter->get('createdAt')->setValue(new \DateTime('now'));
@@ -47,7 +49,7 @@ class WarehouseResource extends AbstractResource
             $inputFilter->add(['name' => 'updatedAt']);
             $inputFilter->get('updatedAt')->setValue(new \DateTime('now'));
 
-            $result = $this->warehouseService->addWarehouse($inputFilter);
+            $result = $this->warehouseService->addWarehouse($inputFilter, $prod);
             return $result;
         } catch (\User\V1\Service\Exception\RuntimeException $e) {
             return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));

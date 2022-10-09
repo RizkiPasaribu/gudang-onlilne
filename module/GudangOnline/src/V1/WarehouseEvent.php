@@ -42,6 +42,8 @@ class WarehouseEvent extends Event
 
     protected $updateData;
 
+    protected $optionFields;
+
 
     /**
      * @return the $inputFilter
@@ -146,5 +148,17 @@ class WarehouseEvent extends Event
     public function setUpdateData($updateData)
     {
         $this->updateData = $updateData;
+    }
+
+    public function getOptionFields()
+    {
+        return $this->optionFields;
+    }
+
+    public function setOptionFields(array $optionFields)
+    {
+        $this->optionFields = $optionFields;
+
+        return $this;
     }
 }

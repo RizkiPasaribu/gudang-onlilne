@@ -15,10 +15,12 @@ class Warehouse
 
     protected $config;
 
-    public function addWarehouse(ZendInputFilter $inputFilter)
+    public function addWarehouse(ZendInputFilter $inputFilter, $optionFields = [])
     {
         $warehouseEvent = new WarehouseEvent();
         $warehouseEvent->setInputFilter($inputFilter);
+        $warehouseEvent->setOptionFields($optionFields);
+        $warehouseEvent->setWarehouseEntity(new warehouseEntity);
         $warehouseEvent->setName(WarehouseEvent::EVENT_CREATE_WAREHOUSE);
         $create = $this->getEventManager()->triggerEvent($warehouseEvent);
         if ($create->stopped()) {

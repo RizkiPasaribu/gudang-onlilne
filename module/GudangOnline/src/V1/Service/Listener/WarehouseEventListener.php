@@ -2,8 +2,9 @@
 
 namespace GudangOnline\V1\Service\Listener;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use GudangOnline\Entity\Warehouse;
-
+use GudangOnline\Entity\Product;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateTrait;
@@ -29,11 +30,14 @@ class WarehouseEventListener implements ListenerAggregateInterface
     protected $fillingTimeRangeHydrator;
 
     protected $warehouseMapper;
+    protected $productMapper;
 
     public function __construct(
-        $warehouseMapper
+        $warehouseMapper,
+        $productMapper
     ) {
         $this->warehouseMapper = $warehouseMapper;
+        $this->productMapper = $productMapper;
     }
 
     /**
@@ -44,9 +48,16 @@ class WarehouseEventListener implements ListenerAggregateInterface
     {
         $this->listeners[] = $events->attach(
             WarehouseEvent::EVENT_CREATE_WAREHOUSE,
+            [$this, 'saveProduct'],
+            499
+        );
+
+        $this->listeners[] = $events->attach(
+            WarehouseEvent::EVENT_CREATE_WAREHOUSE,
             [$this, 'createWarehouse'],
             500
         );
+
 
         $this->listeners[] = $events->attach(
             WarehouseEvent::EVENT_EDIT_WAREHOUSE,
@@ -59,6 +70,63 @@ class WarehouseEventListener implements ListenerAggregateInterface
             [$this, 'deleteWarehouse'],
             500
         );
+    }
+
+
+    public function saveProduct(WarehouseEvent $event)
+    {
+        try {
+            //get entity warehouse
+            $warehouseEntity = $event->getWarehouseEntity();
+            $optionFields = $event->getOptionFields();
+            $this->logger->log(
+                \Psr\Log\LogLevel::DEBUG,
+                "{function}: Product Fields data @ provilEventListener \n =========> {data}",
+                [
+                    "function" => __FUNCTION__,
+                    "data" => json_encode($optionFields)
+                ]
+            );
+
+
+            //bikin product
+            foreach ($optionFields as $option) {
+                $productEntity = new Product;
+                $productEntity->setName($option->name);
+                $productEntity->setPrice($option->price);
+                $productEntity->setCreatedAt(new \DateTime('now'));
+                $productEntity->setUpdatedAt(new \DateTime('now'));
+                $saveProduct = $this->productMapper->save($productEntity);
+                $eduArray[] = $saveProduct;
+
+                $this->logger->log(
+                    \Psr\Log\LogLevel::INFO,
+                    "{function}: {uuid} Product Fields saved successfully",
+                    [
+                        "function" => __FUNCTION__,
+                        "uuid" => $saveProduct->getUuid()
+                    ]
+                );
+            }
+
+            // hubungkan product dengan warehouse
+            if (!is_null($eduArray) || count($eduArray) > 0) {
+                $eduArrayCollection = new ArrayCollection($eduArray);
+                $warehouseEntity->setProducts($eduArrayCollection);
+                $this->warehouseMapper->save($warehouseEntity);
+            }
+        } catch (RuntimeException $e) {
+            $event->stopPropagation(true);
+            $this->logger->log(
+                \Psr\Log\LogLevel::ERROR,
+                "{function} : Something Error! \nError_message: {message}",
+                [
+                    "message" => $e->getMessage(),
+                    "function" => __FUNCTION__
+                ]
+            );
+            return $e;
+        }
     }
 
     public function createWarehouse(WarehouseEvent $event)

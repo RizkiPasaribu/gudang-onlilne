@@ -462,6 +462,12 @@ return [
                 'filters' => [],
                 'name' => 'type',
             ],
+            3 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'products',
+            ],
         ],
         'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [
             0 => [

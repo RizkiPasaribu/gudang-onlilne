@@ -3,6 +3,7 @@
 namespace GudangOnline\Entity;
 
 use Aqilix\ORM\Entity\EntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Warehouse
@@ -235,6 +236,15 @@ class Warehouse implements EntityInterface
     public function removeProduct(\GudangOnline\Entity\Product $product)
     {
         return $this->products->removeElement($product);
+    }
+
+
+    // tambahi sendiri
+    public function setProducts(ArrayCollection $products)
+    {
+        $this->products = $products;
+
+        return $this;
     }
 
     /**
