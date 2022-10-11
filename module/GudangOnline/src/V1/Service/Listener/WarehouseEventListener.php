@@ -2,7 +2,7 @@
 
 namespace GudangOnline\V1\Service\Listener;
 
-
+use Doctrine\Common\Collections\ArrayCollection;
 use GudangOnline\Entity\Warehouse;
 use GudangOnline\Entity\Product;
 use GudangOnline\Entity\WarehouseProduct;
@@ -95,6 +95,7 @@ class WarehouseEventListener implements ListenerAggregateInterface
                 $productEntity->setCreatedAt(new \DateTime('now'));
                 $productEntity->setUpdatedAt(new \DateTime('now'));
                 $saveProduct = $this->productMapper->save($productEntity);
+                $eduArray[] = $saveProduct;
 
                 $warehouseProductEntity = new WarehouseProduct;
                 $warehouseProductEntity->setProduct($saveProduct);
@@ -109,6 +110,10 @@ class WarehouseEventListener implements ListenerAggregateInterface
                         "uuid" => $saveProduct->getUuid()
                     ]
                 );
+            }
+            if (!is_null($eduArray) || count($eduArray) > 0) {
+                $eduArrayCollection = new ArrayCollection($eduArray);
+                $warehouseEntity->setProducts($eduArrayCollection);
             }
         } catch (RuntimeException $e) {
             $event->stopPropagation(true);
