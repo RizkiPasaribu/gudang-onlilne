@@ -23,7 +23,7 @@ class Product extends AbstractMapper implements MapperInterface
     public function fetchAll(array $params, $order = null, $asc = false)
     {
         $qb = $this->getEntityRepository()->createQueryBuilder('t');
-        $cacheKey = 'kelas_';
+        $cacheKey = 'product_';
 
         //search by name
         if (isset($params['name'])) {

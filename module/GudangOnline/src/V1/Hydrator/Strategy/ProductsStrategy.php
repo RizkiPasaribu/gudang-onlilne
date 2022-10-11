@@ -10,7 +10,7 @@ use DoctrineModule\Stdlib\Hydrator\Strategy\AbstractCollectionStrategy;
 use GudangOnline\Entity\WarehouseProduct;
 
 /**
- * Class KelasStrategy
+ * Class ProductStrategy
  *
  * @package User\Stdlib\Hydrator\Strategy
  */

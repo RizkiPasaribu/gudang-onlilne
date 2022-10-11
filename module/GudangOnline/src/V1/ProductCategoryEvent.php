@@ -20,9 +20,8 @@ class ProductCategoryEvent extends Event
     const EVENT_DELETE_PRODUCT_CATEGORY_SUCCESS   = 'delete.productCategory.success';
     const EVENT_DELETE_PRODUCT_CATEGORY_ERROR     = 'delete.productCategory.error';
 
-    /**#@-*/
     /**
-     * @var Kelas\Entity\Kelas
+     * @var GudangOnline\Entity\ProductCategory
      */
     protected $productCategoryEntity;
 
@@ -118,7 +117,7 @@ class ProductCategoryEvent extends Event
     /**
      * Get the value of productCategoryEntity
      *
-     * @return  Kelas\Entity\Kelas
+     * @return  GudangOnline\Entity\ProductCategory
      */
     public function getProductCategoryEntity()
     {
@@ -128,7 +127,7 @@ class ProductCategoryEvent extends Event
     /**
      * Set the value of productCategoryEntity
      *
-     * @param  Kelas\Entity\Kelas  $productCategoryEntity
+     * @param  GudangOnline\Entity\ProductCategory  $productCategoryEntity
      *
      * @return  self
      */

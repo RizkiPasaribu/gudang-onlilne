@@ -6,7 +6,7 @@ use GudangOnline\Entity\ProductCategory;
 use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
- * Class KelasStrategy
+ * Class ProductCategorStrategy
  *
  * @package User\Stdlib\Hydrator\Strategy
  */

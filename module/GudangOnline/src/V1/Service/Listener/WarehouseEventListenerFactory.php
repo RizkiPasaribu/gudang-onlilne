@@ -12,10 +12,12 @@ class WarehouseEventListenerFactory implements FactoryInterface
         $fileConfig  = $container->get('Config')['warehouse']['files'];
         $warehouseMapper = $container->get(\GudangOnline\Mapper\Warehouse::class);
         $productMapper = $container->get(\GudangOnline\Mapper\Product::class);
+        $warehouseProductMapper = $container->get(\GudangOnline\Mapper\WarehouseProduct::class);
         $warehouseHydrator = $container->get('HydratorManager')->get('GudangOnline\Hydrator\Warehouse');
         $warehouseEventListener = new WarehouseEventListener(
             $warehouseMapper,
-            $productMapper
+            $productMapper,
+            $warehouseProductMapper
         );
         $warehouseEventListener->setLogger($container->get("logger_default"));
         $warehouseEventListener->setConfig($fileConfig);

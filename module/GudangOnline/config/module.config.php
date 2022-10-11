@@ -469,14 +469,7 @@ return [
                 'name' => 'products',
             ],
         ],
-        'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [
-            0 => [
-                'required' => false,
-                'validators' => [],
-                'filters' => [],
-                'name' => 'stock',
-            ],
-        ],
+        'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [],
         'GudangOnline\\V1\\Rpc\\StockIn\\Validator' => [
             0 => [
                 'required' => true,

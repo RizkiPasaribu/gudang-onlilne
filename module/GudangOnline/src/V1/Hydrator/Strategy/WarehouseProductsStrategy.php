@@ -8,7 +8,7 @@ use DoctrineModule\Stdlib\Hydrator\Strategy\AbstractCollectionStrategy;
 use GudangOnline\Entity\WarehouseProduct;
 
 /**
- * Class KelasStrategy
+ * Class WarehouseProductsStrategy
  *
  * @package User\Stdlib\Hydrator\Strategy
  */

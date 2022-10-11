@@ -22,7 +22,7 @@ class WarehouseEvent extends Event
 
     /**#@-*/
     /**
-     * @var Kelas\Entity\Kelas
+     * @var GudangOnline\Entity\Warehouse
      */
     protected $warehouseEntity;
 
@@ -120,7 +120,7 @@ class WarehouseEvent extends Event
     /**
      * Get the value of warehouseEntity
      *
-     * @return  Kelas\Entity\Kelas
+     * @return  \GudangOnline\Entity\Warehouse
      */
     public function getWarehouseEntity()
     {
@@ -130,7 +130,7 @@ class WarehouseEvent extends Event
     /**
      * Set the value of warehouseEntity
      *
-     * @param  Kelas\Entity\Kelas  $warehouseEntity
+     * @param  \GudangOnline\Entity\Warehouse  $warehouseEntity
      *
      * @return  self
      */

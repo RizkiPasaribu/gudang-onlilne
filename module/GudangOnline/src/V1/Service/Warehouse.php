@@ -18,8 +18,9 @@ class Warehouse
     public function addWarehouse(ZendInputFilter $inputFilter, $optionFields = [])
     {
         $warehouseEvent = new WarehouseEvent();
+        //null check untuk option fields
+        if (!is_null($optionFields)) $warehouseEvent->setOptionFields($optionFields);
         $warehouseEvent->setInputFilter($inputFilter);
-        $warehouseEvent->setOptionFields($optionFields);
         $warehouseEvent->setWarehouseEntity(new warehouseEntity);
         $warehouseEvent->setName(WarehouseEvent::EVENT_CREATE_WAREHOUSE);
         $create = $this->getEventManager()->triggerEvent($warehouseEvent);

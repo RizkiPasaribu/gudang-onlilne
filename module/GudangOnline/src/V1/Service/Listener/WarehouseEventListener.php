@@ -2,9 +2,10 @@
 
 namespace GudangOnline\V1\Service\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
+
 use GudangOnline\Entity\Warehouse;
 use GudangOnline\Entity\Product;
+use GudangOnline\Entity\WarehouseProduct;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateTrait;
@@ -31,13 +32,16 @@ class WarehouseEventListener implements ListenerAggregateInterface
 
     protected $warehouseMapper;
     protected $productMapper;
+    protected $warehouseProductMapper;
 
     public function __construct(
         $warehouseMapper,
-        $productMapper
+        $productMapper,
+        $warehouseProductMapper
     ) {
         $this->warehouseMapper = $warehouseMapper;
         $this->productMapper = $productMapper;
+        $this->warehouseProductMapper = $warehouseProductMapper;
     }
 
     /**
@@ -46,12 +50,6 @@ class WarehouseEventListener implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(
-            WarehouseEvent::EVENT_CREATE_WAREHOUSE,
-            [$this, 'saveProduct'],
-            499
-        );
-
         $this->listeners[] = $events->attach(
             WarehouseEvent::EVENT_CREATE_WAREHOUSE,
             [$this, 'createWarehouse'],
@@ -97,7 +95,11 @@ class WarehouseEventListener implements ListenerAggregateInterface
                 $productEntity->setCreatedAt(new \DateTime('now'));
                 $productEntity->setUpdatedAt(new \DateTime('now'));
                 $saveProduct = $this->productMapper->save($productEntity);
-                $eduArray[] = $saveProduct;
+
+                $warehouseProductEntity = new WarehouseProduct;
+                $warehouseProductEntity->setProduct($saveProduct);
+                $warehouseProductEntity->setWarehouse($warehouseEntity);
+                $warehouseProductEntity = $this->warehouseProductMapper->save($warehouseProductEntity);
 
                 $this->logger->log(
                     \Psr\Log\LogLevel::INFO,
@@ -107,13 +109,6 @@ class WarehouseEventListener implements ListenerAggregateInterface
                         "uuid" => $saveProduct->getUuid()
                     ]
                 );
-            }
-
-            // hubungkan product dengan warehouse
-            if (!is_null($eduArray) || count($eduArray) > 0) {
-                $eduArrayCollection = new ArrayCollection($eduArray);
-                $warehouseEntity->setProducts($eduArrayCollection);
-                $this->warehouseMapper->save($warehouseEntity);
             }
         } catch (RuntimeException $e) {
             $event->stopPropagation(true);
@@ -142,6 +137,7 @@ class WarehouseEventListener implements ListenerAggregateInterface
             $event->setWarehouseEntity($entityResult);
             $uuid = $warehouseEntity->getUuid();
 
+
             $this->logger->log(
                 \Psr\Log\LogLevel::INFO,
                 "{function}: New Warehouse {uuid} created successfully",
@@ -150,6 +146,8 @@ class WarehouseEventListener implements ListenerAggregateInterface
                     "uuid" => $uuid
                 ]
             );
+
+            $this->saveProduct($event);
         } catch (RuntimeException $e) {
             $event->stopPropagation(true);
             $this->logger->log(

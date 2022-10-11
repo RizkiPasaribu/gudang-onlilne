@@ -88,7 +88,7 @@ class ProductCategoryResource extends AbstractResource
      */
     public function deleteList($data)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
+        return new ApiProblem(405, 'The DELETE method has not been defined for ');
     }
 
     /**

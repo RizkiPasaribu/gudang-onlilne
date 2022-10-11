@@ -96,7 +96,7 @@ class WarehouseProductResource extends AbstractResource
      */
     public function fetch($id)
     {
-        $warehouseProduct = $this->warehouseProductMapper->fetchOne($id);
+        $warehouseProduct = $this->warehouseProductMapper->fetchOneBy(['uuid' => $id]);
         if (!$warehouseProduct) return new ApiProblemResponse(new ApiProblem(404, 'School Not Found'));
         return $warehouseProduct;
     }

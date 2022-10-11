@@ -23,7 +23,7 @@ class WarehouseProduct extends AbstractMapper implements MapperInterface
     public function fetchAll(array $params, $order = null, $asc = false)
     {
         $qb = $this->getEntityRepository()->createQueryBuilder('t');
-        $cacheKey = 'kelas_';
+        $cacheKey = 'warehouse_product_';
 
         $sort = ($asc === false) ? 'DESC' : 'ASC';
         if (is_null($order)) {
