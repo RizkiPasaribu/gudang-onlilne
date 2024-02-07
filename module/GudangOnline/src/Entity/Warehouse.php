@@ -3,7 +3,6 @@
 namespace GudangOnline\Entity;
 
 use Aqilix\ORM\Entity\EntityInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Warehouse
@@ -48,6 +47,11 @@ class Warehouse implements EntityInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    private $warehouseProducts;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
     private $products;
 
     /**
@@ -55,6 +59,7 @@ class Warehouse implements EntityInterface
      */
     public function __construct()
     {
+        $this->warehouseProducts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -213,6 +218,42 @@ class Warehouse implements EntityInterface
     }
 
     /**
+     * Add warehouseProduct.
+     *
+     * @param \GudangOnline\Entity\WarehouseProduct $warehouseProduct
+     *
+     * @return Warehouse
+     */
+    public function addWarehouseProduct(\GudangOnline\Entity\WarehouseProduct $warehouseProduct)
+    {
+        $this->warehouseProducts[] = $warehouseProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove warehouseProduct.
+     *
+     * @param \GudangOnline\Entity\WarehouseProduct $warehouseProduct
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeWarehouseProduct(\GudangOnline\Entity\WarehouseProduct $warehouseProduct)
+    {
+        return $this->warehouseProducts->removeElement($warehouseProduct);
+    }
+
+    /**
+     * Get warehouseProducts.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWarehouseProducts()
+    {
+        return $this->warehouseProducts;
+    }
+
+    /**
      * Add product.
      *
      * @param \GudangOnline\Entity\Product $product
@@ -236,15 +277,6 @@ class Warehouse implements EntityInterface
     public function removeProduct(\GudangOnline\Entity\Product $product)
     {
         return $this->products->removeElement($product);
-    }
-
-
-    // tambahi sendiri
-    public function setProducts(ArrayCollection $products)
-    {
-        $this->products = $products;
-
-        return $this;
     }
 
     /**

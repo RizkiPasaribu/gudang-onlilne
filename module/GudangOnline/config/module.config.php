@@ -469,7 +469,34 @@ return [
                 'name' => 'products',
             ],
         ],
-        'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [],
+        'GudangOnline\\V1\\Rest\\WarehouseProduct\\Validator' => [
+            0 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'stock',
+                'description' => 'for item stock',
+                'field_type' => 'Integer',
+                'allow_empty' => true,
+                'error_message' => 'Field stock must be Integer',
+            ],
+            1 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'product',
+                'field_type' => 'String',
+                'error_message' => 'Required',
+            ],
+            2 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'warehouse',
+                'field_type' => 'String',
+                'error_message' => 'Required',
+            ],
+        ],
         'GudangOnline\\V1\\Rpc\\StockIn\\Validator' => [
             0 => [
                 'required' => true,

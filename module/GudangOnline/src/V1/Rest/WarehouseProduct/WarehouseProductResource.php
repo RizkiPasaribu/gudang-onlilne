@@ -44,7 +44,7 @@ class WarehouseProductResource extends AbstractResource
 
             $inputFilter->add(['name' => 'updatedAt']);
             $inputFilter->get('updatedAt')->setValue(new \DateTime('now'));
-
+            
             $result = $this->warehouseProductService->addWarehouseProduct($inputFilter);
             return $result;
         } catch (\User\V1\Service\Exception\RuntimeException $e) {

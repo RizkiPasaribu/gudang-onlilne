@@ -98,20 +98,6 @@ SQL;
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        //drop tabel yang sudah dibuat
-        //         ALTER TABLE `warehouse` 
-        // DROP FOREIGN KEY `fk_warehouse_warehouse_product`,
-        // DROP FOREIGN KEY `fk_warehouse_product`;
-        // ALTER TABLE `warehouse` 
-        // DROP COLUMN `warehouse_uuid`,
-        // DROP COLUMN `product_uuid`,
-        // DROP INDEX `warehouse_warehouse_product_idx` ,
-        // DROP INDEX `warehouse_product_idx` ;
-        // ;
-
-
-
         $dropTable = <<<SQL
         SET FOREIGN_KEY_CHECKS = 0 ;
         DROP TABLE `product_category`,
@@ -119,7 +105,7 @@ SQL;
             `warehouse`,
             `warehouse_product`
         SET FOREIGN_KEY_CHECKS = 1 ;
-    SQL;
+SQL;
         $this->addSql($dropTable);
     }
 }

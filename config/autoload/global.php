@@ -13,11 +13,11 @@ return [
             'zf3_mysql' => [
                 'database' => 'gudang-online',
                 'driver' => 'PDO_Mysql',
-                'hostname' => 'mysql567',
+                'hostname' => 'mysql5.6',
                 'username' => 'root',
                 'password' => 'password',
                 'port' => '3306',
-                'dsn' => 'mysql:dbname=gudang-online;host=mysql567;charset=utf8',
+                'dsn' => 'mysql:dbname=gudang-online;host=mysql5.6;charset=utf8',
             ],
         ],
     ],

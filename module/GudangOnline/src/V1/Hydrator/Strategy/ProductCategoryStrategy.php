@@ -26,10 +26,7 @@ class ProductCategoryStrategy implements StrategyInterface
     public function extract($value, $object = null)
     {
         if ($value instanceof ProductCategory && !is_null($value)) {
-            $values = [
-                "uuid" => $value->getUuid(),
-                "name" => $value->getName()
-            ];
+            $values = $value->getName();
             return $values;
         }
         return null;

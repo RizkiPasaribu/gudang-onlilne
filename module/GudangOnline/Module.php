@@ -9,6 +9,9 @@ class Module implements ApigilityProviderInterface
 {
     public function onBootstrap(MvcEvent $mvcEvent)
     {
+        // var_dump('model');
+        // exit;
+        
         $sm = $mvcEvent->getApplication()->getServiceManager();
         // product
         $productService = $sm->get(\GudangOnline\V1\Service\Product::class);

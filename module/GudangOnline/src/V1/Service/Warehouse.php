@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilter as ZendInputFilter;
 use GudangOnline\V1\WarehouseEvent;
 
 class Warehouse
-{
+{   
     use EventManagerAwareTrait;
 
     protected $warehouseEvent;
@@ -18,7 +18,6 @@ class Warehouse
     public function addWarehouse(ZendInputFilter $inputFilter, $optionFields = [])
     {
         $warehouseEvent = new WarehouseEvent();
-        //null check untuk option fields
         if (!is_null($optionFields)) $warehouseEvent->setOptionFields($optionFields);
         $warehouseEvent->setInputFilter($inputFilter);
         $warehouseEvent->setWarehouseEntity(new warehouseEntity);
@@ -42,10 +41,10 @@ class Warehouse
         $warehouseEvent->setInputFilter($inputFilter);
         $warehouseEvent->setWarehouseEntity($warehouse);
         $warehouseEvent->setName(WarehouseEvent::EVENT_EDIT_WAREHOUSE);
-        $create = $this->getEventManager()->triggerEvent($warehouseEvent);
-        if ($create->stopped()) {
+        $edit = $this->getEventManager()->triggerEvent($warehouseEvent);
+        if ($edit->stopped()) {
             $warehouseEvent->setName(WarehouseEvent::EVENT_EDIT_WAREHOUSE_ERROR);
-            $warehouseEvent->setException($create->last());
+            $warehouseEvent->setException($edit->last());
             $this->getEventManager()->triggerEvent($warehouseEvent);
             throw $warehouseEvent->getException();
         } else {
@@ -60,10 +59,10 @@ class Warehouse
         $warehouseEvent = new WarehouseEvent();
         $warehouseEvent->setDeleteData($deletedData);
         $warehouseEvent->setName(WarehouseEvent::EVENT_DELETE_WAREHOUSE);
-        $create = $this->getEventManager()->triggerEvent($warehouseEvent);
-        if ($create->stopped()) {
+        $delete = $this->getEventManager()->triggerEvent($warehouseEvent);
+        if ($delete->stopped()) {
             $warehouseEvent->setName(WarehouseEvent::EVENT_DELETE_WAREHOUSE_ERROR);
-            $warehouseEvent->setException($create->last());
+            $warehouseEvent->setException($delete->last());
             $this->getEventManager()->triggerEvent($warehouseEvent);
             throw $warehouseEvent->getException();
         } else {

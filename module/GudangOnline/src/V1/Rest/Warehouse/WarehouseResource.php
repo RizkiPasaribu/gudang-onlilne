@@ -20,7 +20,7 @@ class WarehouseResource extends AbstractResource
         $warehouseMapper,
         $warehouseService
 
-    ) {
+    ) {        
         $this->setUserProfileMapper($userProfileMapper);
         $this->warehouseMapper = $warehouseMapper;
         $this->warehouseService = $warehouseService;
@@ -64,7 +64,20 @@ class WarehouseResource extends AbstractResource
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        $userProfile = $this->fetchUserProfile();
+        if (is_null($userProfile) || is_null($userProfile->getAccount())) {
+            return new ApiProblemResponse(new ApiProblem(404, "You do not have access"));
+        }
+        try {
+            $warehouse = $this->warehouseMapper->fetchOneBy(['uuid' => $id]);
+            if (is_null($warehouse)) {
+                return new ApiProblem(404, "Product data Not Found");
+            }       
+            $this->warehouseService->deleteWarehouse($warehouse);
+            return new ApiProblem(200, "Succes Deleted Warehouse With UUID " . $id, null, "Success");
+        } catch (\RuntimeException $e) {
+            return new ApiProblemResponse(new ApiProblem(500, $e->getMessage()));
+        }
     }
 
     /**
@@ -87,7 +100,7 @@ class WarehouseResource extends AbstractResource
     public function fetch($id)
     {
         $warehouse = $this->warehouseMapper->fetchOne($id);
-        if (!$warehouse) return new ApiProblemResponse(new ApiProblem(404, 'School Not Found'));
+        if (!$warehouse) return new ApiProblemResponse(new ApiProblem(404, 'Warehouse Product Not Found'));
         return $warehouse;
     }
 
@@ -117,8 +130,13 @@ class WarehouseResource extends AbstractResource
      */
     public function patch($id, $data)
     {
-
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
+        $product = $this->warehouseMapper->fetchOneBy(['uuid' => $id]);
+        if (is_null($product)) {
+            return new ApiProblemResponse(new ApiProblem(404, "Product data not found!"));
+        }
+        $inputFilter = $this->getInputFilter();
+        $this->warehouseService->editWarehouse($product, $inputFilter);
+        return $product;
     }
 
     /**

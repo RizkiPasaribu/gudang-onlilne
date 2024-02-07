@@ -3,11 +3,11 @@ return [
     'zf-oauth2' => [
         'storage' => 'user.auth.pdo.adapter',
         'db' => [
-            'dsn' => 'mysql:host=mysql567;dbname=gudang-online',
+            'dsn' => 'mysql:host=mysql5.6;dbname=gudang-online',
             'route' => '/oauth',
             'username' => 'root',
             'password' => 'password',
-            'host' => 'mysql567',
+            'host' => 'mysql5.6',
             'port' => '3306'
         ],
         'options' => [
@@ -15,7 +15,7 @@ return [
             'unset_refresh_token_after_use' => true,
         ],
         'allow_implicit' => false, // default (set to true when you need to support browser-based or mobile apps)
-        'access_lifetime' => 3600, // default (set a value in seconds for access tokens lifetime)
+        'access_lifetime' => 9999, // default (set a value in seconds for access tokens lifetime)
         'enforce_state'  => true,  // default
     ],
 ];
