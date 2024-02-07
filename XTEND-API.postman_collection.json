@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "18d66a83-ad8d-4f04-b8ca-162b597a69fc",
+		"_postman_id": "09300573-ef42-461c-b041-858431a7d271",
 		"name": "XTEND-API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26184305"
 	},
 	"item": [
 		{
@@ -3055,6 +3056,690 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product/645993da-bb32-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product",
+								"645993da-bb32-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product/645993da-bb32-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product",
+								"645993da-bb32-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"rizki2\",\n    \"price\":1000,\n    \"productCategory\":\"b2dcc46c-bf29-11ee-83a4-0242ac110002\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"rizki3\",\n    \"price\":1000,\n    \"productCategory\":\"makanan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product/645993da-bb32-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product",
+								"645993da-bb32-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Category",
+			"item": [
+				{
+					"name": "Get Product Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product-category",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product-category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product-category/8daf3a6c-bb34-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product-category",
+								"8daf3a6c-bb34-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product-category/8daf3a6c-bb34-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product-category",
+								"8daf3a6c-bb34-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"makanan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product-category",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product-category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"rizki3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/product-category/8daf3a6c-bb34-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product-category",
+								"8daf3a6c-bb34-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warahouse",
+			"item": [
+				{
+					"name": "Get Warehouses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse/020dde44-bb37-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse",
+								"020dde44-bb37-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse/b508e422-bf26-11ee-83a4-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse",
+								"b508e422-bf26-11ee-83a4-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Gudang 01\",\n    \"code\":\"01\",\n    \"type\":\"makanan\",\n    \"products\":\"04182eb9-bf2a-11ee-83a4-0242ac110002\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"rizki5\",\n    \"code\":\"01\",\n    \"type\":\"tes\",\n    \"products\":\"tes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse/8fd9db4d-bb36-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse",
+								"8fd9db4d-bb36-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warahouse Product",
+			"item": [
+				{
+					"name": "Get Warehouse Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse-product",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Warehouse Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse-product/8fd9db4d-bb36-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse-product",
+								"8fd9db4d-bb36-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Warehouse Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse-product/8fd9db4d-bb36-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse-product",
+								"8fd9db4d-bb36-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\":\"f996caba-bf29-11ee-83a4-0242ac110002\",\n    \"warehouse\":\"c729dc1b-bf42-11ee-83a4-0242ac110002\",\n    \"stock\":10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse-product",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Warehouse blum jalan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{sms_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"rizki4\",\n    \"code\":\"01\",\n    \"type\":\"tes\",\n    \"products\":\"tes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms_api_host}}/api/v1/warehouse-product/8fd9db4d-bb36-11ee-a1fc-0242ac110002",
+							"host": [
+								"{{sms_api_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"warehouse-product",
+								"8fd9db4d-bb36-11ee-a1fc-0242ac110002"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
